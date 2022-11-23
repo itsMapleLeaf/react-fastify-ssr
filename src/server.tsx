@@ -5,7 +5,7 @@ const fastify = Fastify({
   logger: true,
 })
 
-fastify.get("/", function (request, reply) {
+fastify.get("/", (request, reply) => {
   const rendered = renderToString(
     <html lang="en">
       <head>
@@ -17,10 +17,10 @@ fastify.get("/", function (request, reply) {
       <body>the</body>
     </html>,
   )
-  reply.header("Content-Type", "text/html").send(rendered)
+  reply.header("Content-Type", "text/html").send(`<!DOCTYPE html>${rendered}`)
 })
 
-fastify.listen({ port: 3000 }, function (err, address) {
+fastify.listen({ port: 3000 }, (err, address) => {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
